@@ -1,0 +1,41 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 2rem;
+  background: #f9f9f9;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+#form-container, #filter-container {
+  margin-bottom: 2rem;
+}
+
+#form-container input, 
+#form-container textarea, 
+#form-container select {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 300px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+#form-container button, #filter-container button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#item-list div {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+}
+
+.item-actions button {
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+}

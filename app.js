@@ -1,5 +1,5 @@
-// -------------------- Local Storage Helpers --------------------
-function getCurrentMonth() { const now=new Date(); return String(now.getMonth()+1).padStart(2,'0'); }
+// -------------------- Storage & ID --------------------
+function getCurrentMonth(){ const now=new Date(); return String(now.getMonth()+1).padStart(2,'0'); }
 function generateID(type,category){ 
   const month=getCurrentMonth();
   const key=`${type}${category}_${month}`;
@@ -44,7 +44,9 @@ function displayItems(){
   keys.forEach(id=>{
     const it=items[id]; if(ft && it.type!==ft)return; if(fc && it.category!==fc)return;
     const div=document.createElement('div');
-    div.innerHTML=`<span><span class="item-dot type-${it.type}"></span>${id}: ${it.title}<span class="category-badge">${it.category}</span></span>
+    div.innerHTML=`<span class="item-dot type-${it.type}"></span>
+      <span>${id}: ${it.title}</span>
+      <span class="category-badge">${it.category}</span>
       <span class="item-actions">
         <button onclick="editItem('${id}')">✎</button>
         <button onclick="deleteItem('${id}')">🗑</button>
@@ -58,7 +60,9 @@ function displayRecycleBin(){
   container.innerHTML=''; if(keys.length===0){container.innerHTML='<em>Recycle Bin is empty</em>'; return;}
   keys.forEach(id=>{
     const it=items[id]; const div=document.createElement('div');
-    div.innerHTML=`<span><span class="item-dot type-${it.type}"></span>${id}: ${it.title}<span class="category-badge">${it.category}</span></span>
+    div.innerHTML=`<span class="item-dot type-${it.type}"></span>
+      <span>${id}: ${it.title}</span>
+      <span class="category-badge">${it.category}</span>
       <span class="item-actions">
         <button onclick="restoreItem('${id}')">⟳</button>
         <button onclick="permanentlyDeleteItem('${id}')">🗑</button>
@@ -75,8 +79,7 @@ document.getElementById('addBtn').addEventListener('click',()=>{
   if(!t) return alert("Title required");
   saveItem(type,cat,t,d);
   document.getElementById('title').value=''; document.getElementById('description').value='';
-  displayItems(); displayRecycleBin();
-  document.getElementById('title').focus();
+  displayItems(); displayRecycleBin(); document.getElementById('title').focus();
 });
 
 // Enter key quick add

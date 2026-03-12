@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Task Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Local Task Manager</h1>
+
+  <div id="form-container">
+    <input type="text" id="title" placeholder="Title">
+    <textarea id="description" placeholder="Description"></textarea>
+
+    <select id="type">
+      <option value="T">Task</option>
+      <option value="E">Event</option>
+      <option value="N">Note</option>
+    </select>
+
+    <select id="category">
+      <option value="H">Home</option>
+      <option value="W">Work</option>
+      <option value="P">Personal</option>
+    </select>
+
+    <button id="addBtn">Add Item</button>
+  </div>
+
+  <div id="filter-container">
+    <label>Filter Type:
+      <select id="filter-type">
+        <option value="">All</option>
+        <option value="T">Task</option>
+        <option value="E">Event</option>
+        <option value="N">Note</option>
+      </select>
+    </label>
+
+    <label>Filter Category:
+      <select id="filter-category">
+        <option value="">All</option>
+        <option value="H">Home</option>
+        <option value="W">Work</option>
+        <option value="P">Personal</option>
+      </select>
+    </label>
+
+    <button id="clear-filters">Clear Filters</button>
+  </div>
+
+  <h2>Items</h2>
+  <div id="item-list"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -32,6 +32,18 @@ body {
   min-width: 50px;
 }
 
+/* Make "+" button blue */
+#addBtn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#addBtn:hover { background-color: #2980b9; }
+
 /* Item rows: Grid layout for alignment */
 #item-list div,
 #recycle-bin-list div {

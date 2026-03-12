@@ -23,8 +23,7 @@ body {
   justify-content: center;
 }
 
-#form-container input#title { flex: 2; }
-#form-container input#description { flex: 3; }
+#form-container input#title { flex: 3; font-size: 1rem; }
 #form-container select, #form-container button { flex: 0; }
 
 #form-container input, #form-container select, #filter-container select, #filter-container button {
@@ -37,15 +36,19 @@ body {
 #item-list div,
 #recycle-bin-list div {
   display: grid;
-  grid-template-columns: 20px 1fr auto auto; /* dot | title+ID | category | actions */
+  grid-template-columns: 20px 1fr auto auto; /* dot | title | category | actions */
   align-items: center;
   gap: 0.5rem;
-  padding: 0.3rem 0.5rem;
+  padding: 0.4rem 0.5rem;
   border-bottom: 1px solid #ccc;
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   background: #fff;
 }
 
+/* Slightly bigger title */
+.item-title-container { display: flex; align-items: center; gap: 0.3rem; font-size: 1rem; }
+
+/* Type dot */
 .item-dot {
   width: 12px;
   height: 12px;
@@ -83,7 +86,7 @@ body {
 /* Mobile */
 @media (max-width:500px){
   #form-container, #filter-container { flex-direction: column; gap:0.2rem; }
-  #item-list div, #recycle-bin-list div { grid-template-columns: 20px 2fr auto auto; font-size: 0.8rem; }
+  #item-list div, #recycle-bin-list div { grid-template-columns: 20px 2fr auto auto; font-size: 0.85rem; }
   .category-badge { font-size: 0.65rem; }
   .item-actions button { font-size: 0.7rem; padding: 0.1rem 0.2rem; }
 }

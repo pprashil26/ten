@@ -112,19 +112,25 @@ function displayRecycleBin(){
 }
 
 // -------------------- UI Bindings --------------------
+const titleInput = document.getElementById('title');
+
 document.getElementById('addBtn').addEventListener('click',()=>{
-  const t=document.getElementById('title').value.trim();
+  const t=titleInput.value.trim();
   const type=document.getElementById('type').value, cat=document.getElementById('category').value;
   if(!t) return alert("Title required");
   saveItem(type,cat,t);
-  document.getElementById('title').value='';
+  titleInput.value='';
   displayItems(); displayRecycleBin(); 
-  document.getElementById('title').focus();
+  titleInput.focus();
 });
 
-document.getElementById('title').addEventListener('keydown',e=>{
+// Enter key for adding task
+titleInput.addEventListener('keydown',e=>{
   if(e.key==='Enter'){document.getElementById('addBtn').click(); e.preventDefault();}
 });
+
+// Keep cursor in title input on refresh
+window.addEventListener('load',()=>{ titleInput.focus(); });
 
 document.getElementById('filter-type').addEventListener('change',displayItems);
 document.getElementById('filter-category').addEventListener('change',displayItems);
@@ -142,3 +148,4 @@ document.getElementById('toggle-bin').addEventListener('click',()=>{
 
 // Initial render
 displayItems(); displayRecycleBin();
+titleInput.focus();

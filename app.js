@@ -3,7 +3,7 @@
 // ----------------------------
 function getCurrentMonth() {
   const now = new Date();
-  return String(now.getMonth() + 1).padStart(2, '0'); // 01-12
+  return String(now.getMonth() + 1).padStart(2, '0');
 }
 
 function generateID(type, category) {
@@ -25,12 +25,11 @@ function saveItem(type, category, title, description, tags = []) {
   return id;
 }
 
-// Get all active items
+// Get items
 function getAllItems() {
   return JSON.parse(localStorage.getItem('centralRegister')) || {};
 }
 
-// Get all recycle bin items
 function getRecycleBin() {
   return JSON.parse(localStorage.getItem('recycleBin')) || {};
 }
@@ -42,11 +41,9 @@ function deleteItem(id) {
   let register = getAllItems();
   let recycle = getRecycleBin();
 
-  // Move to recycle bin
   recycle[id] = register[id];
   localStorage.setItem('recycleBin', JSON.stringify(recycle));
 
-  // Remove from main register
   delete register[id];
   localStorage.setItem('centralRegister', JSON.stringify(register));
 
@@ -54,7 +51,6 @@ function deleteItem(id) {
   displayRecycleBin();
 }
 
-// Restore from recycle bin
 function restoreItem(id) {
   let register = getAllItems();
   let recycle = getRecycleBin();
@@ -69,7 +65,6 @@ function restoreItem(id) {
   displayRecycleBin();
 }
 
-// Permanently delete
 function permanentlyDeleteItem(id) {
   if (!confirm("Are you sure you want to permanently delete this item?")) return;
 
@@ -102,7 +97,10 @@ function displayItems() {
   const filterCategory = document.getElementById('filter-category').value;
 
   container.innerHTML = '';
-  Object.keys(items).sort().forEach(id => {
+  const keys = Object.keys(items).sort();
+  if (keys.length === 0) container.innerHTML = '<em>No items</em>';
+
+  keys.forEach(id => {
     const item = items[id];
     if (filterType && item.type !== filterType) return;
     if (filterCategory && item.category !== filterCategory) return;
@@ -121,8 +119,10 @@ function displayRecycleBin() {
   const container = document.getElementById('recycle-bin-list');
   const items = getRecycleBin();
   container.innerHTML = '';
+  const keys = Object.keys(items).sort();
+  if (keys.length === 0) container.innerHTML = '<em>Recycle Bin is empty</em>';
 
-  Object.keys(items).sort().forEach(id => {
+  keys.forEach(id => {
     const item = items[id];
     const div = document.createElement('div');
     div.innerHTML = `<strong>${id}</strong>: ${item.title} - ${item.description}

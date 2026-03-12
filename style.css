@@ -28,7 +28,7 @@ h1 {
   cursor: pointer;
 }
 
-#item-list div {
+#item-list div, #recycle-bin-list div {
   margin-bottom: 0.5rem;
   padding: 0.5rem;
   border-bottom: 1px solid #ccc;

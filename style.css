@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 2rem;
+  margin: 1rem;
   background: #f9f9f9;
 }
 
@@ -9,33 +9,46 @@ h1 {
 }
 
 #form-container, #filter-container {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-#form-container input, 
-#form-container textarea, 
+#form-container input,
+#form-container textarea,
 #form-container select {
-  display: block;
-  margin-bottom: 0.5rem;
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   padding: 0.5rem;
   font-size: 1rem;
+  box-sizing: border-box;
 }
 
-#form-container button, #filter-container button {
+#form-container button,
+#filter-container button {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
 }
 
-#item-list div, #recycle-bin-list div {
+#item-list div,
+#recycle-bin-list div {
   margin-bottom: 0.5rem;
   padding: 0.5rem;
   border-bottom: 1px solid #ccc;
   background: #fff;
+  word-wrap: break-word;
 }
 
 .item-actions button {
   margin-left: 0.5rem;
   font-size: 0.85rem;
+}
+
+@media (min-width: 600px) {
+  #filter-container {
+    flex-direction: row;
+    gap: 1rem;
+  }
 }

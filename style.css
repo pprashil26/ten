@@ -1,53 +1,57 @@
+/* Center wrapper */
 body {
   font-family: Arial, sans-serif;
-  margin: 1rem;
+  margin: 0;
   background: #f9f9f9;
+  display: flex;
+  justify-content: center;
 }
 
-h1 { margin-bottom: 0.5rem; font-size: 1.3rem; }
+#app-wrapper {
+  width: 100%;
+  max-width: 600px;
+  padding: 1rem;
+  box-sizing: border-box;
+}
 
+/* Form and filters */
 #form-container, #filter-container {
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem;
   margin-bottom: 1rem;
-}
-
-#form-container input, #form-container select {
-  padding: 0.3rem;
-  font-size: 0.9rem;
-  width: auto;
-  min-width: 50px;
+  justify-content: center;
 }
 
 #form-container input#title { flex: 2; }
 #form-container input#description { flex: 3; }
-#form-container button { flex: 0; padding: 0 0.5rem; }
+#form-container select, #form-container button { flex: 0; }
 
-#filter-container select, #filter-container button { font-size:0.8rem; padding:0.3rem; }
+#form-container input, #form-container select, #filter-container select, #filter-container button {
+  padding: 0.3rem;
+  font-size: 0.9rem;
+  min-width: 50px;
+}
 
-#item-list div, #recycle-bin-list div {
+/* Item rows: Grid layout for alignment */
+#item-list div,
+#recycle-bin-list div {
+  display: grid;
+  grid-template-columns: 20px 1fr auto auto; /* dot | title+ID | category | actions */
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.3rem 0.5rem;
   border-bottom: 1px solid #ccc;
   font-size: 0.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.item-actions button {
-  margin-left: 0.2rem;
-  font-size: 0.75rem;
-  padding: 0.15rem 0.25rem;
-  cursor: pointer;
+  background: #fff;
 }
 
 .item-dot {
-  display:inline-block;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  margin-right:0.3rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  justify-self: center;
 }
 
 /* Type colors */
@@ -57,14 +61,29 @@ h1 { margin-bottom: 0.5rem; font-size: 1.3rem; }
 
 /* Category badge */
 .category-badge {
-  margin-left:0.5rem;
-  font-size:0.7rem;
-  padding:0.1rem 0.2rem;
-  background:#ddd;
-  border-radius:3px;
+  font-size: 0.7rem;
+  padding: 0.1rem 0.3rem;
+  background: #ddd;
+  border-radius: 3px;
+  justify-self: center;
 }
 
+/* Actions */
+.item-actions {
+  display: flex;
+  gap: 0.25rem;
+  justify-self: center;
+}
+.item-actions button {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.25rem;
+  cursor: pointer;
+}
+
+/* Mobile */
 @media (max-width:500px){
-  #form-container { flex-direction: column; gap:0.2rem; }
-  #filter-container { flex-direction: column; gap:0.2rem; }
+  #form-container, #filter-container { flex-direction: column; gap:0.2rem; }
+  #item-list div, #recycle-bin-list div { grid-template-columns: 20px 2fr auto auto; font-size: 0.8rem; }
+  .category-badge { font-size: 0.65rem; }
+  .item-actions button { font-size: 0.7rem; padding: 0.1rem 0.2rem; }
 }

@@ -3,54 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Local Task Manager - Compact</title>
+<title>Local Task Manager - Compact Centered</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Local Task Manager</h1>
+  <div id="app-wrapper">
+    <h1>Local Task Manager</h1>
 
-<!-- Compact Input Form -->
-<div id="form-container">
-  <input type="text" id="title" placeholder="Title" autocomplete="off">
-  <input type="text" id="description" placeholder="Desc" autocomplete="off">
-  <select id="type">
-    <option value="T">T</option>
-    <option value="E">E</option>
-    <option value="N">N</option>
-  </select>
-  <select id="category">
-    <option value="H">H</option>
-    <option value="W">W</option>
-    <option value="P">P</option>
-  </select>
-  <button id="addBtn">+</button>
-</div>
+    <!-- Compact Input Form -->
+    <div id="form-container">
+      <input type="text" id="title" placeholder="Title" autocomplete="off">
+      <input type="text" id="description" placeholder="Desc" autocomplete="off">
+      <select id="type">
+        <option value="T">T</option>
+        <option value="E">E</option>
+        <option value="N">N</option>
+      </select>
+      <select id="category">
+        <option value="H">H</option>
+        <option value="W">W</option>
+        <option value="P">P</option>
+      </select>
+      <button id="addBtn">+</button>
+    </div>
 
-<!-- Filters -->
-<div id="filter-container">
-  <select id="filter-type">
-    <option value="">All Types</option>
-    <option value="T">Task</option>
-    <option value="E">Event</option>
-    <option value="N">Note</option>
-  </select>
-  <select id="filter-category">
-    <option value="">All Categories</option>
-    <option value="H">Home</option>
-    <option value="W">Work</option>
-    <option value="P">Personal</option>
-  </select>
-  <button id="clear-filters">Clear</button>
-</div>
+    <!-- Filters -->
+    <div id="filter-container">
+      <select id="filter-type">
+        <option value="">All Types</option>
+        <option value="T">Task</option>
+        <option value="E">Event</option>
+        <option value="N">Note</option>
+      </select>
+      <select id="filter-category">
+        <option value="">All Categories</option>
+        <option value="H">Home</option>
+        <option value="W">Work</option>
+        <option value="P">Personal</option>
+      </select>
+      <button id="clear-filters">Clear</button>
+    </div>
 
-<!-- Active Items -->
-<h2>Items</h2>
-<div id="item-list"></div>
+    <!-- Active Items -->
+    <h2>Items</h2>
+    <div id="item-list"></div>
 
-<!-- Recycle Bin -->
-<h2><button id="toggle-bin">Show/Hide Recycle Bin</button></h2>
-<div id="recycle-bin-list" style="display:none;"></div>
+    <!-- Recycle Bin -->
+    <h2><button id="toggle-bin">Show/Hide Recycle Bin</button></h2>
+    <div id="recycle-bin-list" style="display:none;"></div>
+  </div>
 
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

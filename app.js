@@ -1,56 +1,85 @@
 // ----------------------------
 // ID + LocalStorage System
 // ----------------------------
-
-// Get current month as 2 digits
 function getCurrentMonth() {
   const now = new Date();
-  return String(now.getMonth() + 1).padStart(2, '0'); // 01 - 12
+  return String(now.getMonth() + 1).padStart(2, '0'); // 01-12
 }
 
-// Generate unique ID
 function generateID(type, category) {
   const month = getCurrentMonth();
   const counterKey = `${type}${category}_${month}`;
-
   let counter = parseInt(localStorage.getItem(counterKey)) || 0;
   counter += 1;
   localStorage.setItem(counterKey, counter);
-
   const sequence = String(counter).padStart(3, '0');
   return `${type}${category}${month}${sequence}`;
 }
 
-// Save item in central register
+// Save item
 function saveItem(type, category, title, description, tags = []) {
   const id = generateID(type, category);
   let register = JSON.parse(localStorage.getItem('centralRegister')) || {};
-  register[id] = {
-    title,
-    description,
-    tags,
-    type,
-    category,
-    dateCreated: new Date().toISOString()
-  };
+  register[id] = { title, description, tags, type, category, dateCreated: new Date().toISOString() };
   localStorage.setItem('centralRegister', JSON.stringify(register));
   return id;
 }
 
-// Get all items
+// Get all active items
 function getAllItems() {
   return JSON.parse(localStorage.getItem('centralRegister')) || {};
 }
 
-// Delete item
-function deleteItem(id) {
-  let register = getAllItems();
-  delete register[id];
-  localStorage.setItem('centralRegister', JSON.stringify(register));
-  displayItems();
+// Get all recycle bin items
+function getRecycleBin() {
+  return JSON.parse(localStorage.getItem('recycleBin')) || {};
 }
 
-// Edit item
+// ----------------------------
+// Delete / Recycle Bin
+// ----------------------------
+function deleteItem(id) {
+  let register = getAllItems();
+  let recycle = getRecycleBin();
+
+  // Move to recycle bin
+  recycle[id] = register[id];
+  localStorage.setItem('recycleBin', JSON.stringify(recycle));
+
+  // Remove from main register
+  delete register[id];
+  localStorage.setItem('centralRegister', JSON.stringify(register));
+
+  displayItems();
+  displayRecycleBin();
+}
+
+// Restore from recycle bin
+function restoreItem(id) {
+  let register = getAllItems();
+  let recycle = getRecycleBin();
+
+  register[id] = recycle[id];
+  localStorage.setItem('centralRegister', JSON.stringify(register));
+
+  delete recycle[id];
+  localStorage.setItem('recycleBin', JSON.stringify(recycle));
+
+  displayItems();
+  displayRecycleBin();
+}
+
+// Permanently delete
+function permanentlyDeleteItem(id) {
+  if (!confirm("Are you sure you want to permanently delete this item?")) return;
+
+  let recycle = getRecycleBin();
+  delete recycle[id];
+  localStorage.setItem('recycleBin', JSON.stringify(recycle));
+  displayRecycleBin();
+}
+
+// Edit active item
 function editItem(id) {
   let register = getAllItems();
   const item = register[id];
@@ -75,7 +104,6 @@ function displayItems() {
   container.innerHTML = '';
   Object.keys(items).sort().forEach(id => {
     const item = items[id];
-
     if (filterType && item.type !== filterType) return;
     if (filterCategory && item.category !== filterCategory) return;
 
@@ -84,6 +112,23 @@ function displayItems() {
       <span class="item-actions">
         <button onclick="editItem('${id}')">Edit</button>
         <button onclick="deleteItem('${id}')">Delete</button>
+      </span>`;
+    container.appendChild(div);
+  });
+}
+
+function displayRecycleBin() {
+  const container = document.getElementById('recycle-bin-list');
+  const items = getRecycleBin();
+  container.innerHTML = '';
+
+  Object.keys(items).sort().forEach(id => {
+    const item = items[id];
+    const div = document.createElement('div');
+    div.innerHTML = `<strong>${id}</strong>: ${item.title} - ${item.description}
+      <span class="item-actions">
+        <button onclick="restoreItem('${id}')">Restore</button>
+        <button onclick="permanentlyDeleteItem('${id}')">Delete Permanently</button>
       </span>`;
     container.appendChild(div);
   });
@@ -99,12 +144,13 @@ document.getElementById('addBtn').addEventListener('click', () => {
   const category = document.getElementById('category').value;
 
   if (!title) return alert("Title required");
-
   saveItem(type, category, title, description);
-  displayItems();
 
   document.getElementById('title').value = '';
   document.getElementById('description').value = '';
+
+  displayItems();
+  displayRecycleBin();
 });
 
 document.getElementById('filter-type').addEventListener('change', displayItems);
@@ -117,3 +163,4 @@ document.getElementById('clear-filters').addEventListener('click', () => {
 
 // Initial display
 displayItems();
+displayRecycleBin();

@@ -33,10 +33,35 @@ body {
   min-width: 50px;
 }
 
-/* Tag container */
-.tag-container { display: flex; gap: 0.4rem; justify-content: center; margin-bottom: 0.5rem; flex-wrap: wrap; }
-.tag { padding: 0.25rem 0.5rem; background: #ddd; border-radius: 4px; cursor: pointer; user-select: none; transition: background 0.2s; }
-.tag.selected { background: #3498db; color: white; }
+/* Tag container: all in one line */
+.tag-container {
+  display: flex;
+  flex-wrap: wrap;      /* allows small screens to wrap */
+  gap: 0.4rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  align-items: center;
+}
+
+.tag {
+  padding: 0.25rem 0.5rem;
+  background: #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.tag.selected {
+  background: #3498db;
+  color: white;
+}
+
+.separator {
+  color: #888;
+  user-select: none;
+  margin: 0 0.2rem;
+}
 
 /* Item rows: Grid layout */
 #item-list div,

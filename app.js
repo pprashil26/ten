@@ -128,17 +128,20 @@ function displayRecycleBin() {
 
 // -------------------- Export / Import --------------------
 function exportData() {
-    const data = {
-        centralRegister: localStorage.getItem('centralRegister'),
-        recycleBin: localStorage.getItem('recycleBin')
-    };
+    const data = {};
 
-    const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+    // Export everything in localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        data[key] = localStorage.getItem(key);
+    }
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "TEN_backup.json";
+    a.download = "TEN_backup.txt";
     a.click();
 
     URL.revokeObjectURL(url);
@@ -154,18 +157,15 @@ function importData(event) {
         try {
             const data = JSON.parse(e.target.result);
 
-            if (data.centralRegister) {
-                localStorage.setItem('centralRegister', data.centralRegister);
-            }
-
-            if (data.recycleBin) {
-                localStorage.setItem('recycleBin', data.recycleBin);
+            // Restore everything
+            for (const key in data) {
+                localStorage.setItem(key, data[key]);
             }
 
             displayItems();
             displayRecycleBin();
 
-            alert("Import successful");
+            alert("Backup restored successfully");
         } catch {
             alert("Invalid backup file");
         }

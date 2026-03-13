@@ -14,6 +14,12 @@
     <div id="form-container">
       <input type="text" id="title" placeholder="Title" autocomplete="off">
       <button id="addBtn">+</button>
+      <button onclick="exportData()">Export</button>
+
+<label class="import-btn">
+    Import
+    <input type="file" accept=".json" onchange="importData(event)" hidden>
+</label>
     </div>
 
 <!-- Tags in one line -->

@@ -128,6 +128,14 @@ function displayRecycleBin() {
 
 // -------------------- UI Bindings --------------------
 const titleInput = document.getElementById('title');
+// Restore previous title after refresh
+const savedTitle = localStorage.getItem('compactTENTitle') || '';
+titleInput.value = savedTitle;
+
+// Save title to localStorage on every input
+titleInput.addEventListener('input', () => {
+    localStorage.setItem('compactTENTitle', titleInput.value);
+});
 let selectedType = 'T';      // default Task
 let selectedCategory = 'H';  // default Home
 
@@ -156,8 +164,17 @@ document.getElementById('addBtn').addEventListener('click', () => {
     const t = titleInput.value.trim();
     if (!t) return alert("Title required");
     saveItem(selectedType, selectedCategory, t);
+    
+    // Clear input
     titleInput.value = '';
-    displayItems(); displayRecycleBin();
+    
+    // ✅ Clear saved value so old text doesn't come back on refresh
+    localStorage.removeItem('compactTENTitle');
+    
+    displayItems(); 
+    displayRecycleBin();
+    
+    // Focus cursor back in input
     titleInput.focus();
 });
 

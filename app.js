@@ -126,6 +126,64 @@ function displayRecycleBin() {
     });
 }
 
+// -------------------- Export / Import --------------------
+
+// Export backup
+function exportData() {
+    const data = {
+        version: CURRENT_VERSION,
+        exportDate: new Date().toISOString(),
+        centralRegister: localStorage.getItem('centralRegister'),
+        recycleBin: localStorage.getItem('recycleBin'),
+        compactTENTitle: localStorage.getItem('compactTENTitle')
+    };
+
+    // Export ID counters
+    const counters = {};
+    Object.keys(localStorage).forEach(key => {
+        if (/^[TEN][HWP]_\d{2}$/.test(key)) counters[key] = localStorage.getItem(key);
+    });
+    data.counters = counters;
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    const date = new Date().toISOString().slice(0,10);
+    a.href = URL.createObjectURL(blob);
+    a.download = `TEN-backup-${date}.json`;
+    a.click();
+}
+
+// Import backup
+function importData(file) {
+    if (!file) return;
+    if (!confirm("Importing will overwrite current TEN data. Continue?")) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+
+            if (data.centralRegister) localStorage.setItem("centralRegister", data.centralRegister);
+            if (data.recycleBin) localStorage.setItem("recycleBin", data.recycleBin);
+            if (data.compactTENTitle) localStorage.setItem("compactTENTitle", data.compactTENTitle);
+
+            if (data.counters) {
+                Object.keys(data.counters).forEach(key => {
+                    localStorage.setItem(key, data.counters[key]);
+                });
+            }
+
+            alert("TEN data imported successfully");
+            displayItems();
+            displayRecycleBin();
+
+        } catch(err) {
+            alert("Invalid backup file");
+        }
+    };
+    reader.readAsText(file);
+}
+
 // -------------------- UI Bindings --------------------
 const titleInput = document.getElementById('title');
 // Restore previous title after refresh

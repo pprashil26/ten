@@ -1,3 +1,5 @@
+/* -------------------- Global Styles -------------------- */
+
 /* Center wrapper */
 body {
   font-family: Arial, sans-serif;
@@ -9,12 +11,12 @@ body {
 
 /* Title styles for T.E.N Compact Register */
 .app-title {
-  font-size: 0.95rem;       
-  font-weight: 500;          
-  text-transform: uppercase; 
-  letter-spacing: 1.5px;     
-  color: #555;               
-  margin: 0 0 0.5rem 0;      
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #555;
+  margin: 0 0 0.5rem 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -32,7 +34,7 @@ body {
   box-sizing: border-box;
 }
 
-/* Form and filters */
+/* -------------------- Form and Filters -------------------- */
 #form-container, #filter-container {
   display: flex;
   flex-wrap: wrap;
@@ -41,8 +43,21 @@ body {
   justify-content: center;
 }
 
-#form-container input#title { flex: 3; font-size: 1rem; padding: 0.3rem; }
-#form-container button { flex: 0; background-color: #3498db; color: white; border: none; border-radius: 3px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+#form-container input#title { 
+  flex: 3; 
+  font-size: 1rem; 
+  padding: 0.3rem; 
+}
+#form-container button { 
+  flex: 0; 
+  background-color: #3498db; 
+  color: white; 
+  border: none; 
+  border-radius: 3px; 
+  font-weight: bold; 
+  cursor: pointer; 
+  transition: background 0.2s; 
+}
 #form-container button:hover { background-color: #2980b9; }
 
 #filter-container select, #filter-container button {
@@ -51,10 +66,10 @@ body {
   min-width: 50px;
 }
 
-/* Tag container: all in one line */
+/* -------------------- Tags -------------------- */
 .tag-container {
   display: flex;
-  flex-wrap: wrap;      /* allows small screens to wrap */
+  flex-wrap: wrap;
   gap: 0.4rem;
   justify-content: center;
   margin-bottom: 0.5rem;
@@ -81,11 +96,11 @@ body {
   margin: 0 0.2rem;
 }
 
-/* Item rows: Grid layout */
+/* -------------------- Item Rows -------------------- */
 #item-list div,
 #recycle-bin-list div {
   display: grid;
-  grid-template-columns: 20px 1fr auto auto; 
+  grid-template-columns: 35px 1fr auto auto; /* first column slightly wider */
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.5rem;
@@ -94,6 +109,27 @@ body {
   background: #fff;
 }
 
+/* Subtle background for ID column */
+#item-list div > :first-child,
+#recycle-bin-list div > :first-child {
+  color: #999;           /* subtle grey */
+  font-size: 0.8rem;     /* smaller than main text */
+  justify-self: center;  /* center in grid column */
+  font-weight: 400;      /* normal weight */
+  user-select: none;     /* not selectable */
+  background: rgba(0,0,0,0.03);  /* very subtle grey background */
+  border-radius: 3px;
+  padding: 2px 4px;      /* small padding for visual separation */
+}
+
+/* Keep ID grey on hover */
+#item-list div > :first-child:hover,
+#recycle-bin-list div > :first-child:hover {
+  color: #999;
+  cursor: default;
+}
+
+/* Item content */
 .item-title-container { display: flex; align-items: center; gap: 0.3rem; font-size: 1rem; }
 .item-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; justify-self: center; }
 .type-T { background: #3498db; }
@@ -104,10 +140,18 @@ body {
 .item-actions { display: flex; gap: 0.25rem; justify-self: center; }
 .item-actions button { font-size: 0.75rem; padding: 0.15rem 0.25rem; cursor: pointer; }
 
-/* Mobile */
+/* -------------------- Mobile -------------------- */
 @media (max-width:500px){
   #form-container, #filter-container { flex-direction: column; gap:0.2rem; }
-  #item-list div, #recycle-bin-list div { grid-template-columns: 20px 2fr auto auto; font-size: 0.85rem; }
+  #item-list div, #recycle-bin-list div { 
+    grid-template-columns: 30px 2fr auto auto; 
+    font-size: 0.85rem; 
+  }
+  #item-list div > :first-child,
+  #recycle-bin-list div > :first-child {
+    font-size: 0.75rem;
+    padding: 1px 3px;
+  }
   .category-badge { font-size: 0.65rem; }
   .item-actions button { font-size: 0.7rem; padding: 0.1rem 0.2rem; }
 }

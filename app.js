@@ -1,3 +1,12 @@
+// -------------------- Version Check (Safe, keeps existing data) --------------------
+const CURRENT_VERSION = '1.0.1'; // increment this when you update your code
+const storedVersion = localStorage.getItem('appVersion');
+
+if (storedVersion !== CURRENT_VERSION) {
+    // Just update the version, do NOT remove any existing tasks
+    localStorage.setItem('appVersion', CURRENT_VERSION);
+}
+
 // -------------------- Storage & ID --------------------
 function getCurrentMonth(){ const now=new Date(); return String(now.getMonth()+1).padStart(2,'0'); }
 

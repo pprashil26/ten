@@ -6,39 +6,38 @@
 <title>Compact T.E.N Register</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Container for search + add button aligned */
-  #top-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px; /* space between search and add button */
-    margin-bottom: 10px; /* small gap below top bar */
+  /* Independent search box, floating on the left of title bar */
+  #search-bar-container {
+    position: absolute;
+    left: 10px;  /* distance from the left edge of screen */
+    top: 15px;   /* roughly aligned with title */
+    z-index: 1000;
   }
 
-  /* Search box styling */
   #search-box {
     padding: 4px 8px;
     font-size: 14px;
     border-radius: 4px;
     border: 1px solid #ccc;
+    width: 140px; /* compact width, adjustable */
   }
 </style>
 </head>
 <body>
 
+  <!-- Independent search box -->
+  <div id="search-bar-container">
+    <input type="text" id="search-box" placeholder="Search..." autocomplete="off">
+  </div>
+
+  <!-- Main App Wrapper (unchanged) -->
   <div id="app-wrapper">
     <h2 class="app-title">T.E.N<span class="app-subtitle">Compact Register</span></h2>
 
-    <!-- Top bar: Search + Title Input + Add + Export/Import -->
-    <div id="top-bar">
-      <!-- Search Box -->
-      <input type="text" id="search-box" placeholder="Search..." autocomplete="off">
-
-      <!-- Title Input -->
+    <!-- Compact Input Form -->
+    <div id="form-container">
       <input type="text" id="title" placeholder="Title" autocomplete="off">
-
-      <!-- Add Task Button -->
       <button id="addBtn">+</button>
-
       <!-- Export / Import Buttons -->
       <button onclick="exportData()">Export</button>
       <input type="file" id="importFile" accept=".json" style="display:none"
@@ -48,12 +47,10 @@
 
     <!-- Tags in one line -->
     <div id="tags-container" class="tag-container">
-      <!-- Type tags -->
       <span class="tag selected" data-value="T">Task</span>
       <span class="tag" data-value="E">Event</span>
       <span class="tag" data-value="N">Note</span>
       <span class="separator">|</span>
-      <!-- Category tags -->
       <span class="tag selected" data-value="H">Home</span>
       <span class="tag" data-value="W">Work</span>
       <span class="tag" data-value="P">Personal</span>
@@ -93,7 +90,7 @@
     // Filter items as you type
     searchBox.addEventListener('input', function() {
       const query = this.value.toLowerCase();
-      const items = document.querySelectorAll('#item-list .item'); // ensure each item has class 'item'
+      const items = document.querySelectorAll('#item-list .item'); // make sure each item has class 'item'
       items.forEach(item => {
         item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
       });

@@ -92,15 +92,14 @@ function displayItems() {
         if (fc && it.category !== fc) return;
         const div = document.createElement('div');
         div.innerHTML = `
-    <span class="item-dot type-${it.type}"></span>
-    <span class="item-id">${id}</span>
-    <span class="item-title-container"><span class="item-title">${it.title}</span></span>
-    <span class="category-badge">${it.category}</span>
-    <span class="item-actions">
-        <button onclick="editItem('${id}')">✎</button>
-        <button onclick="deleteItem('${id}')">🗑</button>
-    </span>
-`;
+            <span class="item-dot type-${it.type}"></span>
+            <span class="item-title-container"><span class="item-title">${id}: ${it.title}</span></span>
+            <span class="category-badge">${it.category}</span>
+            <span class="item-actions">
+                <button onclick="editItem('${id}')">✎</button>
+                <button onclick="deleteItem('${id}')">🗑</button>
+            </span>
+        `;
         container.appendChild(div);
     });
 }
@@ -115,15 +114,14 @@ function displayRecycleBin() {
         const it = items[id];
         const div = document.createElement('div');
         div.innerHTML = `
-    <span class="item-dot type-${it.type}"></span>
-    <span class="item-id">${id}</span>
-    <span class="item-title-container"><span class="item-title">${it.title}</span></span>
-    <span class="category-badge">${it.category}</span>
-    <span class="item-actions">
-        <button onclick="restoreItem('${id}')">⟳</button>
-        <button onclick="permanentlyDeleteItem('${id}')">🗑</button>
-    </span>
-`;
+            <span class="item-dot type-${it.type}"></span>
+            <span class="item-title-container"><span class="item-title">${id}: ${it.title}</span></span>
+            <span class="category-badge">${it.category}</span>
+            <span class="item-actions">
+                <button onclick="restoreItem('${id}')">⟳</button>
+                <button onclick="permanentlyDeleteItem('${id}')">🗑</button>
+            </span>
+        `;
         container.appendChild(div);
     });
 }

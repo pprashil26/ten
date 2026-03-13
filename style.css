@@ -7,6 +7,24 @@ body {
   justify-content: center;
 }
 
+/* Title styles for T.E.N Compact Register */
+.app-title {
+  font-size: 0.95rem;       
+  font-weight: 500;          
+  text-transform: uppercase; 
+  letter-spacing: 1.5px;     
+  color: #555;               
+  margin: 0 0 0.5rem 0;      
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-subtitle {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #777;
+  margin-left: 0.3rem;
+}
+
 #app-wrapper {
   width: 100%;
   max-width: 600px;

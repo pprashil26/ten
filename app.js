@@ -126,6 +126,54 @@ function displayRecycleBin() {
     });
 }
 
+// -------------------- Export / Import --------------------
+function exportData() {
+    const data = {
+        centralRegister: localStorage.getItem('centralRegister'),
+        recycleBin: localStorage.getItem('recycleBin')
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "TEN_backup.json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+
+            if (data.centralRegister) {
+                localStorage.setItem('centralRegister', data.centralRegister);
+            }
+
+            if (data.recycleBin) {
+                localStorage.setItem('recycleBin', data.recycleBin);
+            }
+
+            displayItems();
+            displayRecycleBin();
+
+            alert("Import successful");
+        } catch {
+            alert("Invalid backup file");
+        }
+    };
+
+    reader.readAsText(file);
+}
+
 // -------------------- UI Bindings --------------------
 const titleInput = document.getElementById('title');
 // Restore previous title after refresh

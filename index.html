@@ -6,28 +6,29 @@
 <title>Compact T.E.N Register</title>
 <link rel="stylesheet" href="style.css">
 <style>
-  /* Independent search box styling */
   #search-bar-container {
     position: absolute;
-    left: 10px;  /* distance from left edge */
+    left: 10px;  /* distance from left edge, adjust as needed */
+    top: 54px;   /* aligned vertically with Add button, adjust if your Add button top changes */
     z-index: 1000;
   }
 
   #search-box {
-    padding: 6px 10px;   /* slightly bigger */
-    font-size: 15px;     /* slightly bigger text */
+    padding: 6px 10px;    /* slightly bigger padding */
+    font-size: 15px;      /* slightly bigger text */
     border-radius: 4px;
     border: 1px solid #ccc;
-    width: 180px;        /* wider */
+    width: 180px;         /* wider than before */
   }
 </style>
 </head>
 <body>
 
-  <!-- Independent search box -->
-  <div id="search-bar-container">
-    <input type="text" id="search-box" placeholder="Search..." autocomplete="off">
-  </div>
+<!-- Independent search box, aligned with Add button -->
+<div id="search-bar-container">
+  <input type="text" id="search-box" placeholder="Search..." autocomplete="off">
+</div>
+
 
   <!-- Main App Wrapper (unchanged) -->
   <div id="app-wrapper">
@@ -83,34 +84,19 @@
 
   <script src="app.js"></script>
   <script>
-    const searchBoxContainer = document.getElementById('search-bar-container');
+    // --- Search Functionality ---
     const searchBox = document.getElementById('search-box');
-    const addBtn = document.getElementById('addBtn');
 
-    // Align search box top dynamically with Add button
-    function alignSearchBox() {
-      const addBtnRect = addBtn.getBoundingClientRect();
-      const scrollTop = window.scrollY || window.pageYOffset;
-      searchBoxContainer.style.top = (addBtnRect.top + scrollTop) + 'px';
-    }
-
-    // Initial alignment
-    alignSearchBox();
-
-    // Re-align on window resize or scroll
-    window.addEventListener('resize', alignSearchBox);
-    window.addEventListener('scroll', alignSearchBox);
-
-    // --- Search functionality ---
+    // Filter items as you type
     searchBox.addEventListener('input', function() {
       const query = this.value.toLowerCase();
-      const items = document.querySelectorAll('#item-list > *'); // all children, no class needed
+      const items = document.querySelectorAll('#item-list > *'); // all direct children, works regardless of class
       items.forEach(item => {
         item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
       });
     });
 
-    // Ctrl + / or Cmd + / shortcut to focus search
+    // Ctrl + / or Cmd + / to focus search
     document.addEventListener('keydown', function(e) {
       if ((e.ctrlKey || e.metaKey) && e.key === '/') {
         e.preventDefault();

@@ -3,27 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Local Task Manager - Compact Centered</title>
+<title>Local Task Manager - Tag Selection</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="app-wrapper">
-    <h2>T.E.N Register</h2>
+    <h1>Local Task Manager</h1>
 
     <!-- Compact Input Form -->
     <div id="form-container">
       <input type="text" id="title" placeholder="Title" autocomplete="off">
-      <select id="type">
-        <option value="T">T</option>
-        <option value="E">E</option>
-        <option value="N">N</option>
-      </select>
-      <select id="category">
-        <option value="H">H</option>
-        <option value="W">W</option>
-        <option value="P">P</option>
-      </select>
       <button id="addBtn">+</button>
+    </div>
+
+    <!-- Type Tags -->
+    <div id="type-tags" class="tag-container">
+      <span class="tag selected" data-value="T">Task</span>
+      <span class="tag" data-value="E">Event</span>
+      <span class="tag" data-value="N">Note</span>
+    </div>
+
+    <!-- Category Tags -->
+    <div id="category-tags" class="tag-container">
+      <span class="tag selected" data-value="H">Home</span>
+      <span class="tag" data-value="W">Work</span>
+      <span class="tag" data-value="P">Personal</span>
     </div>
 
     <!-- Filters -->

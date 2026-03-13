@@ -19,36 +19,30 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   justify-content: center;
 }
 
-#form-container input#title { flex: 3; font-size: 1rem; }
-#form-container select, #form-container button { flex: 0; }
+#form-container input#title { flex: 3; font-size: 1rem; padding: 0.3rem; }
+#form-container button { flex: 0; background-color: #3498db; color: white; border: none; border-radius: 3px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+#form-container button:hover { background-color: #2980b9; }
 
-#form-container input, #form-container select, #filter-container select, #filter-container button {
+#filter-container select, #filter-container button {
   padding: 0.3rem;
   font-size: 0.9rem;
   min-width: 50px;
 }
 
-/* Make "+" button blue */
-#addBtn {
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-#addBtn:hover { background-color: #2980b9; }
+/* Tag container */
+.tag-container { display: flex; gap: 0.4rem; justify-content: center; margin-bottom: 0.5rem; flex-wrap: wrap; }
+.tag { padding: 0.25rem 0.5rem; background: #ddd; border-radius: 4px; cursor: pointer; user-select: none; transition: background 0.2s; }
+.tag.selected { background: #3498db; color: white; }
 
-/* Item rows: Grid layout for alignment */
+/* Item rows: Grid layout */
 #item-list div,
 #recycle-bin-list div {
   display: grid;
-  grid-template-columns: 20px 1fr auto auto; /* dot | title | category | actions */
+  grid-template-columns: 20px 1fr auto auto; 
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.5rem;
@@ -57,43 +51,15 @@ body {
   background: #fff;
 }
 
-/* Slightly bigger title */
 .item-title-container { display: flex; align-items: center; gap: 0.3rem; font-size: 1rem; }
-
-/* Type dot */
-.item-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: inline-block;
-  justify-self: center;
-}
-
-/* Type colors */
+.item-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; justify-self: center; }
 .type-T { background: #3498db; }
 .type-E { background: #2ecc71; }
 .type-N { background: #f1c40f; }
+.category-badge { font-size: 0.7rem; padding: 0.1rem 0.3rem; background: #ddd; border-radius: 3px; justify-self: center; }
 
-/* Category badge */
-.category-badge {
-  font-size: 0.7rem;
-  padding: 0.1rem 0.3rem;
-  background: #ddd;
-  border-radius: 3px;
-  justify-self: center;
-}
-
-/* Actions */
-.item-actions {
-  display: flex;
-  gap: 0.25rem;
-  justify-self: center;
-}
-.item-actions button {
-  font-size: 0.75rem;
-  padding: 0.15rem 0.25rem;
-  cursor: pointer;
-}
+.item-actions { display: flex; gap: 0.25rem; justify-self: center; }
+.item-actions button { font-size: 0.75rem; padding: 0.15rem 0.25rem; cursor: pointer; }
 
 /* Mobile */
 @media (max-width:500px){

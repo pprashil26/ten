@@ -90,7 +90,7 @@
     // Filter items as you type
     searchBox.addEventListener('input', function() {
       const query = this.value.toLowerCase();
-      const items = document.querySelectorAll('#item-list .item'); // make sure each item has class 'item'
+      const items = document.querySelectorAll('#item-list > *'); // all direct children, works regardless of class
       items.forEach(item => {
         item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
       });

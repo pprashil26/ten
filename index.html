@@ -16,10 +16,8 @@
       <button id="addBtn">+</button>
  <button onclick="exportData()">Export</button>
 
-<label>
-    <button type="button">Import</button>
-    <input type="file" accept=".json" onchange="importData(event)" style="display:none">
-</label>
+<button onclick="document.getElementById('importFile').click()">Import</button>
+<input id="importFile" type="file" accept=".json" onchange="importData(event)" style="display:none">
     </div>
 
 <!-- Tags in one line -->

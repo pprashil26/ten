@@ -131,19 +131,23 @@ const titleInput = document.getElementById('title');
 let selectedType = 'T';      // default Task
 let selectedCategory = 'H';  // default Home
 
-// Tag selection logic
-document.querySelectorAll('#type-tags .tag').forEach(tag => {
+// -------------------- Tag selection logic for one-line tags --------------------
+const tagElements = document.querySelectorAll('#tags-container .tag');
+tagElements.forEach(tag => {
     tag.addEventListener('click', () => {
-        document.querySelectorAll('#type-tags .tag').forEach(t => t.classList.remove('selected'));
+        const isType = ['T','E','N'].includes(tag.dataset.value);
+        const group = isType ? ['T','E','N'] : ['H','W','P'];
+
+        // Remove 'selected' only from this group
+        tagElements.forEach(t => {
+            if (group.includes(t.dataset.value)) t.classList.remove('selected');
+        });
+
         tag.classList.add('selected');
-        selectedType = tag.dataset.value;
-    });
-});
-document.querySelectorAll('#category-tags .tag').forEach(tag => {
-    tag.addEventListener('click', () => {
-        document.querySelectorAll('#category-tags .tag').forEach(t => t.classList.remove('selected'));
-        tag.classList.add('selected');
-        selectedCategory = tag.dataset.value;
+
+        // Update selectedType or selectedCategory
+        if (isType) selectedType = tag.dataset.value;
+        else selectedCategory = tag.dataset.value;
     });
 });
 
